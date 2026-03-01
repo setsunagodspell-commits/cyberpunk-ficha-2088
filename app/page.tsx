@@ -1,80 +1,66 @@
-export default function Home() {
+"use client";
+import { useState } from "react";
+
+export default function FichaCyberpunk() {
+  const [nome, setNome] = useState("");
+  const [classe, setClasse] = useState("");
+  const [nivel, setNivel] = useState("");
+
+  const [forca, setForca] = useState<number | "">("");
+  const [reflexos, setReflexos] = useState<number | "">("");
+  const [resistencia, setResistencia] = useState<number | "">("");
+  const [tecnica, setTecnica] = useState<number | "">("");
+  const [inteligencia, setInteligencia] = useState<number | "">("");
+  const [presenca, setPresenca] = useState<number | "">("");
+  const [estabilidade, setEstabilidade] = useState<number | "">("");
+
+  // Fórmulas automáticas
+  const hp = resistencia !== "" ? 10 + resistencia * 5 : "";
+  const stamina =
+    forca !== "" && resistencia !== "" ? 5 + (forca + resistencia) : "";
+  const foco =
+    inteligencia !== "" && reflexos !== "" ? 5 + (inteligencia + reflexos) : "";
+  const sanidade = estabilidade !== "" ? 10 + estabilidade * 3 : "";
+
   return (
-    <main className="bg-black text-green-400 min-h-screen p-8 font-mono">
-      <h1 className="text-4xl mb-6 text-cyan-400 font-bold animate-pulse">
-        🧬 Ficha Cyberpunk 2077 RPG
-      </h1>
+    <main style={{ padding: "20px", fontFamily: "monospace" }}>
+      <h1>Ficha Cyberpunk 2088</h1>
 
-      {/* Dados principais */}
-      <section className="grid grid-cols-2 gap-6 mb-8">
-        <div className="border border-cyan-400 p-4 rounded">
-          <h2 className="text-xl">Nome:</h2>
-          <p>Johnny Silverhand</p>
-        </div>
-        <div className="border border-cyan-400 p-4 rounded">
-          <h2 className="text-xl">Classe:</h2>
-          <p>Solo</p>
-        </div>
-        <div className="border border-cyan-400 p-4 rounded">
-          <h2 className="text-xl">Nível:</h2>
-          <p>5</p>
-        </div>
-      </section>
+      <h2>Identidade</h2>
+      <label>Nome: <input value={nome} onChange={e => setNome(e.target.value)} /></label><br/>
+      <label>Classe: <input value={classe} onChange={e => setClasse(e.target.value)} /></label><br/>
+      <label>Nível: <input value={nivel} onChange={e => setNivel(e.target.value)} /></label>
 
-      {/* Atributos */}
-      <section className="mb-8">
-        <h2 className="text-2xl text-pink-400 mb-4">🧬 Atributos</h2>
-        <ul className="grid grid-cols-2 gap-4">
-          <li>FOR (Físico): 8</li>
-          <li>REF (Reflexos): 9</li>
-          <li>RES (Resistência): 7</li>
-          <li>TEC (Técnica): 6</li>
-          <li>INT (Inteligência): 7</li>
-          <li>PRE (Presença): 5</li>
-          <li>EST (Estabilidade Neural): 6</li>
-        </ul>
-      </section>
+      <h2>🧬 Atributos</h2>
+      <label>FOR: <input type="number" value={forca} onChange={e => setForca(Number(e.target.value))} /></label><br/>
+      <label>REF: <input type="number" value={reflexos} onChange={e => setReflexos(Number(e.target.value))} /></label><br/>
+      <label>RES: <input type="number" value={resistencia} onChange={e => setResistencia(Number(e.target.value))} /></label><br/>
+      <label>TEC: <input type="number" value={tecnica} onChange={e => setTecnica(Number(e.target.value))} /></label><br/>
+      <label>INT: <input type="number" value={inteligencia} onChange={e => setInteligencia(Number(e.target.value))} /></label><br/>
+      <label>PRE: <input type="number" value={presenca} onChange={e => setPresenca(Number(e.target.value))} /></label><br/>
+      <label>EST: <input type="number" value={estabilidade} onChange={e => setEstabilidade(Number(e.target.value))} /></label>
 
-      {/* Barras */}
-      <section className="mb-8">
-        <h2 className="text-2xl text-red-400 mb-4">❤️ Barras</h2>
-        <ul className="space-y-2">
-          <li>HP: 10 + (RES × 5)</li>
-          <li>Stamina: 5 + (FOR + RES)</li>
-          <li>Foco: 5 + (INT + REF)</li>
-          <li>Sanidade: 10 + (EST × 3)</li>
-          <li>Carga Cibernética: limite de implantes</li>
-        </ul>
-      </section>
+      <h2>❤️ Barras</h2>
+      <p>HP: {hp}</p>
+      <p>Stamina: {stamina}</p>
+      <p>Foco: {foco}</p>
+      <p>Sanidade: {sanidade}</p>
 
-      {/* Combate */}
-      <section className="mb-8">
-        <h2 className="text-2xl text-yellow-400 mb-4">🔫 Combate</h2>
-        <ul className="space-y-2">
-          <li>Precisão: +2</li>
-          <li>Crítico: 15%</li>
-          <li>Redução de Dano: 20%</li>
-          <li>Iniciativa: +3</li>
-          <li>Penetração: +1</li>
-        </ul>
-      </section>
+      <h2>🔫 Combate</h2>
+      <label>Precisão: <input /></label><br/>
+      <label>Crítico: <input /></label><br/>
+      <label>Redução de Dano: <input /></label><br/>
+      <label>Iniciativa: <input /></label><br/>
+      <label>Penetração: <input /></label>
 
-      {/* Implantes */}
-      <section className="mb-8">
-        <h2 className="text-2xl text-purple-400 mb-4">🦾 Implantes</h2>
-        <p>Braço Cibernético, Óptica Neural, Reforço Muscular</p>
-      </section>
+      <h2>🦾 Implantes</h2>
+      <textarea rows={3} />
 
-      {/* Armadura */}
-      <section>
-        <h2 className="text-2xl text-blue-400 mb-4">🛡 Armadura</h2>
-        <ul className="space-y-2">
-          <li>Nome: Jaqueta Blindada</li>
-          <li>Blindagem: 30</li>
-          <li>Durabilidade: 100</li>
-          <li>Consumo: Médio</li>
-        </ul>
-      </section>
+      <h2>🛡 Armadura</h2>
+      <label>Nome: <input /></label><br/>
+      <label>Blindagem: <input /></label><br/>
+      <label>Durabilidade: <input /></label><br/>
+      <label>Consumo: <input /></label>
     </main>
   );
 }
